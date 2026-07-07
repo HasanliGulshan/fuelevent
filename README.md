@@ -42,7 +42,8 @@ Example response:
 | `400` | Empty/missing file, no sheets, no numeric data, or non-positive `threshold` |
 | `500` | Unexpected server error |
 
-Swagger UI: `http://localhost:<port>/<context-path>/swagger-ui/index.html`
+Swagger UI (port/context-path from `application.yml`):
+`http://localhost:8082/fuel-event/swagger-ui/index.html`
 
 ## Configuration (`application.yml`)
 
