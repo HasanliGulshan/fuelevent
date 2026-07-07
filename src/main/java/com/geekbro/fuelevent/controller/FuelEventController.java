@@ -14,10 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/fuel-events")
 @Tag(name = "Fuel Events", description = "Detects refuel and theft events from raw fuel sensor data")
@@ -40,7 +36,7 @@ public class FuelEventController {
             @RequestParam("file") MultipartFile file,
             @Parameter(description = "Optional noise threshold override (raw sensor units). Must be positive.")
             @Positive(message = "threshold must be greater than zero")
-            @RequestParam(value = "threshold", required = false) Double threshold) throws IOException {
+            @RequestParam(value = "threshold", required = false) Double threshold) {
 
         FuelEventResponse response = new FuelEventResponse(fuelEventService.processFile(file, threshold));
         return ResponseEntity.ok(response);

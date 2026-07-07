@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
-import java.io.IOException;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -25,10 +24,10 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", "No file uploaded. Please attach an Excel (.xlsx) file under the 'file' field."));
     }
 
-    @ExceptionHandler(IOException.class)
-    public ResponseEntity<Map<String, String>> handleIOException(IOException e) {
+    @ExceptionHandler(FuelFileProcessingException.class)
+    public ResponseEntity<Map<String, String>> handleFileProcessing(FuelFileProcessingException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Failed to read the uploaded file: " + e.getMessage()));
+                .body(Map.of("error", e.getMessage()));
     }
 
     @ExceptionHandler(HandlerMethodValidationException.class)
@@ -44,6 +43,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleUnexpected(Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Unexpected error: " + e.getMessage()));
+                .body(Map.of("error", "An unexpected error occurred. Please contact support."));
     }
 }

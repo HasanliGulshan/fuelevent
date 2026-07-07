@@ -2,6 +2,7 @@ package com.geekbro.fuelevent.service;
 
 import com.geekbro.fuelevent.config.FuelEventDetectionProperties;
 import com.geekbro.fuelevent.detector.FuelEventDetector;
+import com.geekbro.fuelevent.exception.FuelFileProcessingException;
 import com.geekbro.fuelevent.exception.InvalidFuelFileException;
 import lombok.AllArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
@@ -24,8 +25,7 @@ public class FuelEventService {
 
     private final FuelEventDetectionProperties properties;
 
-    public Map<String, List<Double>> processFile(MultipartFile file, Double thresholdOverride)
-            throws IOException {
+    public Map<String, List<Double>> processFile(MultipartFile file, Double thresholdOverride) {
 
         if (file == null || file.isEmpty()) {
             throw new InvalidFuelFileException("Uploaded file is empty.");
@@ -62,6 +62,9 @@ public class FuelEventService {
         } catch (org.apache.poi.EmptyFileException | org.apache.poi.EncryptedDocumentException e) {
             log.warn("Uploaded file '{}' is not a readable Excel file: {}", file.getOriginalFilename(), e.getMessage());
             throw new InvalidFuelFileException("Uploaded file is not a valid, readable Excel file.");
+        } catch (IOException e) {
+            log.error("I/O error while reading uploaded file '{}'", file.getOriginalFilename(), e);
+            throw new FuelFileProcessingException("Failed to read the uploaded file.", e);
         }
 
         return result;

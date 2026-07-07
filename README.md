@@ -75,12 +75,12 @@ set per-request by clients.
 ## Project structure
 
 ```
-com.fuelevent.detector     FuelEventDetector — pure algorithm, no Spring dependency
-com.fuelevent.service      FuelEventService — reads the Excel file (Apache POI), validates it
-com.fuelevent.controller   FuelEventController — REST endpoint
-com.fuelevent.dto          FuelEventResponse — API response shape
-com.fuelevent.config       FuelEventDetectionProperties — binds fuel-event.detection.* from YAML
-com.fuelevent.exception    GlobalExceptionHandler — centralized error handling (@RestControllerAdvice)
+com.geekbro.fuelevent.detector     FuelEventDetector — pure algorithm, no Spring dependency
+com.geekbro.fuelevent.service      FuelEventService — reads the Excel file (Apache POI), validates it
+com.geekbro.fuelevent.controller   FuelEventController — REST endpoint
+com.geekbro.fuelevent.dto          FuelEventResponse — API response shape
+com.geekbro.fuelevent.config       FuelEventDetectionProperties — binds fuel-event.detection.* from YAML
+com.geekbro.fuelevent.exception    GlobalExceptionHandler — centralized error handling (@RestControllerAdvice)
 ```
 
 `FuelEventDetector` is intentionally stateless and framework-free — the
