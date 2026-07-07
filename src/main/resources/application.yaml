@@ -1,0 +1,19 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /fuel-event
+
+spring:
+  application:
+    name: fuel-event
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+fuel-event:
+  detection:
+    default-threshold: 5.0
+    hold-samples: 3
+    group-gap: 3
+    max-ramp-extension: 10
